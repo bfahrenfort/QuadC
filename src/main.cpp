@@ -47,7 +47,7 @@ Quirk daveCLI()
     quirk.color = Color(red, green, blue);
 
     std::cout << "DAVE: okay now what weird stuff do you do when typing" EL;
-    std::cout << "DAVE: ill just assume nothing" EL;
+    std::cout << "DAVE: ill just assume nothing ok" EL;
     return quirk;
 }
 
