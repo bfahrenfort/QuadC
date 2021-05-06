@@ -1,4 +1,4 @@
-Modifiers are evaluated in this order.
+Modifiers are evaluated in the order they appear in the quirkfile, and checked for in this exact order.
 NOPUNC - No periods, apostrophes, or commas. Frequently used with LOWCAP.
 ALLCAP - Text is translated to all caps
 LOWCAP - Text is translated to all lowercase
@@ -6,5 +6,5 @@ ALTCP1 - Text alternates from capital to lowercase
 ALTCP2 - Text alternates from lowercase to capital
 RNDCAP - Characters will be randomly capped or uncapped
 TTLCAP - The first character of every word will be capitalized.
-ASTRSK - Text inside prefixes will be enclosed in asterisks.
+ASTRSK - Text will be enclosed in asterisks. Highly recommended to place this BEFORE a roleplay prefix.
 ROLPLY - Roleplay prefix. The next line should contain the prefix, which will appear before a space and then the string.
