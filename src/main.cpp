@@ -138,5 +138,12 @@ Quirk daveCLI()
     quirk.replacements = new Pair[numPairs];
     std::copy(pairs.begin(), pairs.end(), quirk.replacements);
     quirk.numReplacements = numPairs;
+
+    std::cout << "DAVE: final thing do you wanna save your quirk in a file" EL;
+    std::cout << "DAVE: if you do enter the name without an extension" EL;
+    std::cout << "DAVE: otherwise you know the drill by now -1 me baby" EL;
+    getline(std::cin, input);
+    if(input != "-1")
+        writeQuirk(quirk, input.append(".qrk"));
     return quirk;
 }
