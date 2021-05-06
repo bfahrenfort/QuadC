@@ -1,11 +1,11 @@
 /*
- * Title: Homestuck Quirk Typer
+ * Title: QuadC
  * Author: Kirby
- * Description: takes any strings inputted and edits them to exhibit a typing quirk.
+ * Description: Wrappers and testing for the generation and access of quirks
  *
  * Quirks are a collection of a text color,
  *   broad modifiers on the text,
- *   and specific substrings that are replaced in a target string.
+ *   and specific substrings that are replaced in a target string after modifiers are applied.
  *
  * Quirkfiles are text files created by this program. They have the extension .qrk and contain the following:
  * R G B
@@ -22,34 +22,12 @@
 
 #include <iostream>
 #include <string>
+#include <vector>
 #include "quirk.hpp"
 
 using namespace utils;
 
-Quirk daveCLI()
-{
-    Quirk quirk;
-    int red{}, green{}, blue{};
-    std::string str, replacement;
-
-    std::cout << "DAVE: yo this be under construction but we can try it" EL;
-    std::cout << "DAVE: wassup we got hella work to do so let's get started" EL;
-    std::cout << "DAVE: gimme your blood color's red value" EL;
-    std::cout << "DAVE: should be between 0 and 255" EL;
-    std::cin >> red;
-    ignoreLine();
-    std::cout << "DAVE: perfect now the green" EL;
-    std::cin >> green;
-    ignoreLine();
-    std::cout << "DAVE: aight last one, blue" EL;
-    std::cin >> blue;
-    ignoreLine();
-    quirk.color = Color(red, green, blue);
-
-    std::cout << "DAVE: okay now what weird stuff do you do when typing" EL;
-    std::cout << "DAVE: ill just assume nothing ok" EL;
-    return quirk;
-}
+Quirk daveCLI();
 
 int main(int argc, char *argv[])
 {
@@ -93,4 +71,70 @@ int main(int argc, char *argv[])
     }
 
     return 0;
+}
+
+Quirk daveCLI()
+{
+    Quirk quirk;
+
+    int red{}, green{}, blue{};
+    std::cout << "AUTORESPONDER: yo this be under construction just fyi" EL;
+    std::cout << "DAVE: wassup we got hella work to do so let's get started" EL;
+    std::cout << "DAVE: gimme your blood color's red value" EL;
+    std::cout << "DAVE: should be between 0 and 255" EL;
+    std::cin >> red;
+    ignoreLine();
+    std::cout << "DAVE: perfect now the green" EL;
+    std::cin >> green;
+    ignoreLine();
+    std::cout << "DAVE: aight last one, blue" EL;
+    std::cin >> blue;
+    ignoreLine();
+    quirk.color = Color(red, green, blue);
+
+    int numModifiers{};
+    std::string input;
+    std::vector<std::string> modifiers;
+    std::cout << "DAVE: okay now what weird stuff do you do when typing" EL;
+    std::cout << "DAVE: probably best to consult the modifier list" EL;
+    std::cout << "DAVE: just remember any typos here are gonna cost you later" EL;
+    while(input != "-1")
+    {
+        std::cout << "DAVE: gimme a modifier or -1 if youre done w modifiers" EL;
+        getline(std::cin, input);
+        if(input != "-1")
+        {
+            modifiers.emplace_back(input);
+            ++numModifiers;
+        }
+    }
+
+    std::string str, replacement;
+    std::vector<Pair> pairs;
+    Pair temp;
+    int numPairs{};
+    std::cout << "DAVE: last one is specific letters/words you want replaced with other things" EL;
+    std::cout << "DAVE: you're gonna enter some letters then a space then the replacement letters" EL;
+    std::cout << "DAVE: oh and -1 -1 when youre done" EL;
+    while(str != "-1")
+    {
+        std::cout << "DAVE: gimme your replacements" EL;
+        std::cin >> str >> replacement;
+        ignoreLine();
+        if(str != "-1")
+        {
+            temp.str = str;
+            temp.replacement = replacement;
+            pairs.emplace_back(temp);
+            ++numPairs;
+        }
+    }
+
+    quirk.modifiers = new std::string[numModifiers];
+    std::copy(modifiers.begin(), modifiers.end(), quirk.modifiers);
+    quirk.numModifiers = numModifiers;
+    quirk.replacements = new Pair[numPairs];
+    std::copy(pairs.begin(), pairs.end(), quirk.replacements);
+    quirk.numReplacements = numPairs;
+    return quirk;
 }
