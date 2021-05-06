@@ -1,5 +1,7 @@
-#include "color.h"
+#include "color.hpp"
 #include <iostream>
+#include <string>
+#include <sstream>
 #include "quirk.hpp"
 
 Color::Color()
@@ -22,4 +24,11 @@ Color::Color(const Color& color)
 void Color::printColor()
 {
     std::cout << red << ' ' << green << ' ' << blue EL;
+}
+
+std::string Color::toString() const
+{
+    std::ostringstream is;
+    is << red << " " << green << " " << blue;
+    return is.str();
 }
