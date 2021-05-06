@@ -68,6 +68,8 @@ int main(int argc, char *argv[])
             }
         }
         while(choice != "n");
+
+        deallocQuirk(quirk);
     }
 
     return 0;

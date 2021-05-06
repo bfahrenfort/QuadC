@@ -246,5 +246,11 @@ namespace utils
 
         return output;
     }
+
+    int deallocQuirk(Quirk &q)
+    {
+        delete[] q.modifiers;
+        delete[] q.replacements;
+    }
 }
 
