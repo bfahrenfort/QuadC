@@ -1,7 +1,7 @@
 #include <string>
 #include <iostream>
 #include <unordered_map>
-#include "color.h"
+#include "color.hpp"
 
 #ifndef QUIRKTYPER_QUIRK_HPP
 #define QUIRKTYPER_QUIRK_HPP
@@ -61,6 +61,10 @@ namespace QuirkUtils
     // Parse the effects of a quirk on a string
     std::string parseQuirk(const std::string &input, const Quirk &quirk);
 
+    // Create a quirkfile from the specified quirk
+    int writeQuirk(const Quirk &quirk, const std::string &title);
+
+    // Deallocate quirk's dynamic components so it can safely go out of scope
     int deallocQuirk(Quirk &q);
 }
 

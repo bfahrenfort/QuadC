@@ -247,6 +247,34 @@ namespace QuirkUtils
         return output;
     }
 
+    int writeQuirk(const Quirk &quirk, const std::string &title)
+    {
+        std::ofstream fout(title);
+        if(fout)
+        {
+            fout << quirk.color.toString() EL;
+
+            fout << quirk.numModifiers EL;
+            for(unsigned int i = 0; i < quirk.numModifiers; ++i)
+            {
+                fout << quirk.modifiers[i] EL;
+            }
+
+            fout << quirk.numReplacements EL;
+            for(unsigned int i = 0; i < quirk.numReplacements; ++i)
+            {
+                fout << quirk.replacements[i].str << " " << quirk.replacements[i].replacement EL;
+            }
+
+            fout.close();
+            return 0;
+        }
+        else
+        {
+            return -1;
+        }
+    }
+
     int deallocQuirk(Quirk &q)
     {
         delete[] q.modifiers;
