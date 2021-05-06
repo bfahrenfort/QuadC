@@ -25,7 +25,7 @@
 #include <vector>
 #include "quirk.hpp"
 
-using namespace utils;
+using namespace QuirkUtils;
 
 Quirk daveCLI();
 

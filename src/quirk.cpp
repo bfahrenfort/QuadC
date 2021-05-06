@@ -5,7 +5,7 @@
 #include <string>
 #include <sstream>
 
-namespace utils
+namespace QuirkUtils
 {
     void ignoreLine()
     {
@@ -251,6 +251,7 @@ namespace utils
     {
         delete[] q.modifiers;
         delete[] q.replacements;
+        return 0;
     }
 }
 

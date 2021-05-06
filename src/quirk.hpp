@@ -8,7 +8,7 @@
 
 #define EL << std::endl
 
-namespace utils
+namespace QuirkUtils
 {
     // A relation of a base substring and what it is replaced with
     struct Pair
