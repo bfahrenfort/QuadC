@@ -72,7 +72,7 @@ namespace QuirkUtils
     int writeQuirk(const Quirk &quirk, const std::string &title);
 
     // Deallocate quirk's dynamic components so it can safely go out of scope
-    int deallocQuirk(Quirk &q);
+    int destructQuirk(Quirk &q);
 }
 
 #endif //QUIRKTYPER_UTIL_HPP

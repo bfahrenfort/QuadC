@@ -277,7 +277,7 @@ namespace QuirkUtils
         }
     }
 
-    int deallocQuirk(Quirk &q)
+    int destructQuirk(Quirk &q)
     {
         delete[] q.modifiers;
         delete[] q.replacements;
