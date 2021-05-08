@@ -2,6 +2,7 @@
  * Title: QuadC
  * Author: Kirby
  * Description: Wrappers and testing for the generation and access of quirks
+ * Now with efficient storage!
  *
  * Quirks are a collection of a text color,
  *   broad modifiers on the text,
@@ -31,6 +32,7 @@ Quirk daveCLI();
 
 int main(int argc, char *argv[])
 {
+
     if(argc == 1)
     {
         std::string message;
@@ -96,7 +98,8 @@ Quirk daveCLI()
 
     int numModifiers{};
     std::string input;
-    std::vector<std::string> modifiers;
+    std::vector<Modifier> modifiers;
+    Modifier tmod{};
     std::cout << "DAVE: okay now what weird stuff do you do when typing" EL;
     std::cout << "DAVE: probably best to consult the modifier list" EL;
     std::cout << "DAVE: just remember any typos here are gonna cost you later" EL;
@@ -104,37 +107,52 @@ Quirk daveCLI()
     {
         std::cout << "DAVE: gimme a modifier or -1 if youre done w modifiers" EL;
         getline(std::cin, input);
-        if(input != "-1")
+        if((input != "-1") && (input.size() <= 6))
         {
-            modifiers.emplace_back(input);
+            strcpy_s(tmod.modifier, 7, input.c_str());
+            modifiers.emplace_back(tmod);
             ++numModifiers;
+        }
+        else if(input.size() > 6)
+        {
+            std::cout << "DAVE: pretty obvious typo bud" EL;
+            std::cout << "DAVE: lets do that again" EL;
         }
     }
 
     std::string str, replacement;
     std::vector<Pair> pairs;
-    Pair temp;
+    Pair tpair{};
     int numPairs{};
     std::cout << "DAVE: last one is specific letters/words you want replaced with other things" EL;
     std::cout << "DAVE: you're gonna enter some letters then a space then the replacement letters" EL;
+    std::cout << "DAVE: there is an 8 char limit here tho" EL;
     std::cout << "DAVE: oh and -1 -1 when youre done" EL;
     while(str != "-1")
     {
         std::cout << "DAVE: gimme your replacements" EL;
         std::cin >> str >> replacement;
         ignoreLine();
-        if(str != "-1")
+        if((str != "-1") && (str.size() <= 8) && (str.size() <= 8))
         {
-            temp.str = str;
-            temp.replacement = replacement;
-            pairs.emplace_back(temp);
+            strcpy_s(tpair.str, 9, str.c_str());
+            strcpy_s(tpair.replacement, 9, replacement.c_str());
+            //tpair.str = str;
+            //tpair.replacement = replacement;
+            pairs.emplace_back(tpair);
             ++numPairs;
+        }
+        else if((str.size() > 8) || (str.size() > 8))
+        {
+            std::cout << "DAVE: whoa there little too many characters" EL;
+            std::cout << "DAVE: lets do that again" EL;
         }
     }
 
-    quirk.modifiers = new std::string[numModifiers];
+    quirk.modifiers = new Modifier[numModifiers];
     std::copy(modifiers.begin(), modifiers.end(), quirk.modifiers);
     quirk.numModifiers = numModifiers;
+
     quirk.replacements = new Pair[numPairs];
     std::copy(pairs.begin(), pairs.end(), quirk.replacements);
     quirk.numReplacements = numPairs;

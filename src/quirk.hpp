@@ -13,7 +13,14 @@ namespace QuirkUtils
     // A relation of a base substring and what it is replaced with
     struct Pair
     {
-        std::string str, replacement;
+        //std::string str, replacement;
+        char str[9], replacement[9]; // 8-character limit, pretty reasonable imo
+    };
+
+    // Literally just a modifier string but inside a struct so I can make it a dynamic array
+    struct Modifier
+    {
+        char modifier[7]; // All modifier codes are 6 characters long, this limits roleplay prefixes as well
     };
 
     // The main grouping
@@ -23,10 +30,10 @@ namespace QuirkUtils
         Pair* replacements;
         unsigned int numReplacements = 0, numModifiers = 0;
 
-        std::string* modifiers;
+        Modifier* modifiers;
     };
 
-    enum Modifier
+    enum Modifiers
     {
         NOPUNC,
         ALLCAP,
@@ -39,16 +46,16 @@ namespace QuirkUtils
         ROLPLY
     };
 
-    static std::unordered_map<std::string, Modifier> const eMap = {
-            {"NOPUNC", Modifier::NOPUNC},
-            {"ALLCAP", Modifier::ALLCAP},
-            {"LOWCAP", Modifier::LOWCAP},
-            {"ALTCP1", Modifier::ALTCP1},
-            {"ALTCP2", Modifier::ALTCP2},
-            {"RNDCAP", Modifier::RNDCAP},
-            {"TTLCAP", Modifier::TTLCAP},
-            {"ASTRSK", Modifier::ASTRSK},
-            {"ROLPLY", Modifier::ROLPLY}
+    static std::unordered_map<std::string, Modifiers> const eMap = {
+            {"NOPUNC", Modifiers::NOPUNC},
+            {"ALLCAP", Modifiers::ALLCAP},
+            {"LOWCAP", Modifiers::LOWCAP},
+            {"ALTCP1", Modifiers::ALTCP1},
+            {"ALTCP2", Modifiers::ALTCP2},
+            {"RNDCAP", Modifiers::RNDCAP},
+            {"TTLCAP", Modifiers::TTLCAP},
+            {"ASTRSK", Modifiers::ASTRSK},
+            {"ROLPLY", Modifiers::ROLPLY}
     };
 
     // Clear the input buffer

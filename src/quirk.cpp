@@ -26,7 +26,7 @@ namespace QuirkUtils
         if(fin)
         {
             Pair* pairs;
-            std::string* modifiers;
+            Modifier* modifiers;
             std::string input;
             std::string str, replacement;
             int red{}, green{}, blue{};
@@ -40,18 +40,17 @@ namespace QuirkUtils
             std::cout << "Color found..." EL;
 
             // Get the modifiers
-            // TODO: Input validation
             fin >> numModifiers;
             ignoreLine(fin);
             std::cout << (numModifiers > 0 ? "Number of modifiers found..." : "Skipping modifiers...") EL;
             if(numModifiers > 0)
             {
-                modifiers = new std::string[numModifiers];
+                modifiers = new Modifier[numModifiers];
 
                 for(unsigned int i = 0; i < numModifiers; ++i)
                 {
-                    std::getline(fin, input);
-                    modifiers[i] = input;
+                    getline(fin, input);
+                    strcpy_s(modifiers[i].modifier, 7, input.c_str());
                 }
 
             }
@@ -69,10 +68,12 @@ namespace QuirkUtils
                 pairs = new Pair[numReplacements];
                 for(unsigned int i = 0; i < numReplacements; ++i)
                 {
-                    std::getline(fin, str, ' ');
-                    pairs[i].str = str;
-                    std::getline(fin, replacement);
-                    pairs[i].replacement = replacement;
+                    getline(fin, str, ' ');
+                    strcpy_s(pairs[i].str, 9, str.c_str());
+                    //pairs[i].str = str;
+                    getline(fin, replacement);
+                    strcpy_s(pairs[i].replacement, 9, replacement.c_str());
+                    //pairs[i].replacement = replacement;
                 }
             }
             else
@@ -106,8 +107,8 @@ namespace QuirkUtils
         {
             for(unsigned int i = 0; i < quirk.numModifiers; ++i)
             {
-                Modifier mod;
-                auto it = eMap.find(quirk.modifiers[i]);
+                Modifiers mod;
+                auto it = eMap.find(quirk.modifiers[i].modifier);
                 if(it != eMap.end())
                 {
                     mod = it->second;
@@ -214,7 +215,7 @@ namespace QuirkUtils
                         case ROLPLY:
                         {
                             std::cout << "Roleplay modifier applying" EL;
-                            output = std::string(quirk.modifiers[i + 1]).append(" ").append(output);
+                            output = std::string(quirk.modifiers[i + 1].modifier).append(" ").append(output);
                             ++i; // Ignore the roleplay prefix
                             break;
                         }
@@ -237,7 +238,8 @@ namespace QuirkUtils
                     token = output.substr(0, pos);
                     temp += token;
                     temp += quirk.replacements[i].replacement;
-                    output.erase(0, pos + quirk.replacements[i].str.length());
+                    output.erase(0, pos + strlen(quirk.replacements[i].str));
+                    //output.erase(0, pos + quirk.replacements[i].str.size());
                 }
                 temp += output; // Append the last nonreplacement token
                 output = temp;
@@ -257,7 +259,7 @@ namespace QuirkUtils
             fout << quirk.numModifiers EL;
             for(unsigned int i = 0; i < quirk.numModifiers; ++i)
             {
-                fout << quirk.modifiers[i] EL;
+                fout << quirk.modifiers[i].modifier EL;
             }
 
             fout << quirk.numReplacements EL;
