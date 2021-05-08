@@ -28,7 +28,7 @@ namespace QuirkUtils
     {
         Color color;
         Pair* replacements;
-        unsigned int numReplacements = 0, numModifiers = 0;
+        unsigned int numReplacements, numModifiers;
 
         Modifier* modifiers;
     };

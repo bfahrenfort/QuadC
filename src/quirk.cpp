@@ -221,6 +221,10 @@ namespace QuirkUtils
                         }
                     }
                 }
+                else
+                {
+                    std::cout << "WARNING: Typo in modifier found, please check your quirkfile" EL;
+                }
             }
         }
 
