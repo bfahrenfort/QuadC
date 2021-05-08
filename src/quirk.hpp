@@ -46,7 +46,7 @@ namespace QuirkUtils
         ROLPLY
     };
 
-    static std::unordered_map<std::string, Modifiers> const eMap = {
+    std::unordered_map<std::string, Modifiers> const eMap = {
             {"NOPUNC", Modifiers::NOPUNC},
             {"ALLCAP", Modifiers::ALLCAP},
             {"LOWCAP", Modifiers::LOWCAP},
