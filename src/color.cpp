@@ -21,12 +21,12 @@ Color::Color(const Color& color)
     blue = color.blue;
 }
 
-void Color::printColor()
+void Color::PrintColor()
 {
     std::cout << red << ' ' << green << ' ' << blue EL;
 }
 
-std::string Color::toString() const
+std::string Color::ToString() const
 {
     std::ostringstream is;
     is << red << " " << green << " " << blue;

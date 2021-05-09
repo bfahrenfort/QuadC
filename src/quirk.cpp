@@ -7,16 +7,16 @@
 
 namespace QuirkUtils
 {
-    void ignoreLine()
+    void IgnoreLine()
     {
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     }
-    void ignoreLine(std::ifstream& stream)
+    void IgnoreLine(std::ifstream& stream)
     {
         stream.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     }
 
-    int checkFile(const std::string& title, Quirk& quirk)
+    int CheckFile(const std::string& title, Quirk& quirk)
     {
         std::cout << "Reading quirkfile " << title EL;
 
@@ -34,12 +34,12 @@ namespace QuirkUtils
 
             // Get the color
             fin >> red >> green >> blue;
-            ignoreLine(fin); // I LOVE this function
+            IgnoreLine(fin); // I LOVE this function
             std::cout << "Color found..." EL;
 
             // Get the modifiers
             fin >> numModifiers;
-            ignoreLine(fin);
+            IgnoreLine(fin);
             std::cout << (numModifiers > 0 ? "Number of modifiers found..." : "Skipping modifiers...") EL;
             if(numModifiers > 0)
             {
@@ -59,7 +59,7 @@ namespace QuirkUtils
 
             // Get the replacements
             fin >> numReplacements;
-            ignoreLine(fin);
+            IgnoreLine(fin);
             std::cout << (numReplacements > 0 ? "Number of replacements found..." : "Skipping replacements...") EL;
             if(numReplacements > 0)
             {
@@ -97,7 +97,7 @@ namespace QuirkUtils
         }
     }
 
-    std::string parseQuirk(const std::string &input, const Quirk &quirk)
+    std::string ParseQuirk(const std::string &input, const Quirk &quirk)
     {
         std::string output = input;
 
@@ -250,12 +250,12 @@ namespace QuirkUtils
         return output;
     }
 
-    int writeQuirk(const Quirk &quirk, const std::string &title)
+    int WriteQuirk(const Quirk &quirk, const std::string &title)
     {
         std::ofstream fout(title);
         if(fout)
         {
-            fout << quirk.color.toString() EL;
+            fout << quirk.color.ToString() EL;
 
             fout << quirk.numModifiers EL;
             for(unsigned int i = 0; i < quirk.numModifiers; ++i)
@@ -278,7 +278,7 @@ namespace QuirkUtils
         }
     }
 
-    int destructQuirk(Quirk &q)
+    int DestructQuirk(Quirk &q)
     {
         delete[] q.modifiers;
         delete[] q.replacements;

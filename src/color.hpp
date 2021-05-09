@@ -9,8 +9,8 @@ public:
     Color();
     Color(int r, int g, int b);
     Color(const Color& color);
-    void printColor();
-    std::string toString() const;
+    void PrintColor();
+    std::string ToString() const;
 
 private:
     int red, green, blue;

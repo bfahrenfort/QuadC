@@ -5,6 +5,6 @@
 extern "C"
 #endif //__cplusplus
 
-int cmdLine (int argc, char **argv);
+int CmdLine (int argc, char **argv);
 
 #endif //QUIRKTYPER_CMD_LINE_H

@@ -58,20 +58,20 @@ namespace QuirkUtils
     };
 
     // Clear the input buffer
-    void ignoreLine();
-    void ignoreLine(std::ifstream &stream);
+    void IgnoreLine();
+    void IgnoreLine(std::ifstream &stream);
 
     // Check if a file with a quirk exists and if so, return the quirk
-    int checkFile(const std::string &title, Quirk &q);
+    int CheckFile(const std::string &title, Quirk &q);
 
     // Parse the effects of a quirk on a string
-    std::string parseQuirk(const std::string &input, const Quirk &quirk);
+    std::string ParseQuirk(const std::string &input, const Quirk &quirk);
 
     // Create a quirkfile from the specified quirk
-    int writeQuirk(const Quirk &quirk, const std::string &title);
+    int WriteQuirk(const Quirk &quirk, const std::string &title);
 
     // Deallocate quirk's dynamic components so it can safely go out of scope
-    int destructQuirk(Quirk &q);
+    int DestructQuirk(Quirk &q);
 }
 
 #endif //QUIRKTYPER_UTIL_HPP

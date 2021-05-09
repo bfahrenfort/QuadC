@@ -29,13 +29,12 @@
 
 using namespace QuirkUtils;
 
-static Quirk daveCmdLine();
+static Quirk DaveCmdLine();
 
-static void printUsage(char **argv);
+static void PrintUsage(char **argv);
 
-int cmdLine (int argc, char **argv)
+int CmdLine (int argc, char **argv)
 {
-
     switch(argc)
     {
         case 1:
@@ -49,14 +48,14 @@ int cmdLine (int argc, char **argv)
 
             std::cout << "Enter the path to your quirkfile, or -1 if you do not have one:";
             std::cin >> file;
-            ignoreLine();
+            IgnoreLine();
 
             if(file == "-1")
             {
-                quirk = daveCmdLine();
+                quirk = DaveCmdLine();
             } else
             {
-                result = checkFile(file, quirk);
+                result = CheckFile(file, quirk);
             }
 
             if(result == 0)
@@ -66,11 +65,11 @@ int cmdLine (int argc, char **argv)
 
                 do
                 {
-                    output = parseQuirk(message, quirk);
+                    output = ParseQuirk(message, quirk);
                     std::cout << output EL;
                     std::cout << "Would you like to enter another message? y/n:";
                     std::cin >> choice;
-                    ignoreLine();
+                    IgnoreLine();
                     if(choice == "y")
                     {
                         std::cout << "Enter your message:";
@@ -78,7 +77,7 @@ int cmdLine (int argc, char **argv)
                     }
                 } while(choice != "n");
 
-                destructQuirk(quirk);
+                DestructQuirk(quirk);
             } else
             {
                 std::cout << "DAVE: you done goofed" EL;
@@ -96,11 +95,11 @@ int cmdLine (int argc, char **argv)
 
             if((path.size() > 4) && (path.compare(path.size() - 4, 4, ".qrk") == 0))
             {
-                result = checkFile(path, quirk);
+                result = CheckFile(path, quirk);
 
                 if(result == 0)
                 {
-                    output = parseQuirk(msg, quirk);
+                    output = ParseQuirk(msg, quirk);
                     std::cout << output;
                 }
             }
@@ -108,14 +107,14 @@ int cmdLine (int argc, char **argv)
         }
         default:
         {
-            printUsage(argv);
+            PrintUsage(argv);
         }
     }
 
     return 0;
 }
 
-static Quirk daveCmdLine()
+static Quirk DaveCmdLine()
 {
     Quirk quirk;
 
@@ -125,13 +124,13 @@ static Quirk daveCmdLine()
     std::cout << "DAVE: gimme your blood color's red value" EL;
     std::cout << "DAVE: should be between 0 and 255" EL;
     std::cin >> red;
-    ignoreLine();
+    IgnoreLine();
     std::cout << "DAVE: perfect now the green" EL;
     std::cin >> green;
-    ignoreLine();
+    IgnoreLine();
     std::cout << "DAVE: aight last one, blue" EL;
     std::cin >> blue;
-    ignoreLine();
+    IgnoreLine();
     quirk.color = Color(red, green, blue);
 
     int numModifiers{};
@@ -170,7 +169,7 @@ static Quirk daveCmdLine()
     {
         std::cout << "DAVE: gimme your replacements" EL;
         std::cin >> str >> replacement;
-        ignoreLine();
+        IgnoreLine();
         if((str != "-1") && (str.size() <= 8) && (str.size() <= 8))
         {
             strcpy_s(tpair.str, 9, str.c_str());
@@ -200,11 +199,11 @@ static Quirk daveCmdLine()
     std::cout << "DAVE: otherwise you know the drill by now -1 me baby" EL;
     getline(std::cin, input);
     if(input != "-1")
-        writeQuirk(quirk, input.append(".qrk"));
+        WriteQuirk(quirk, input.append(".qrk"));
     return quirk;
 }
 
-static void printUsage(char **argv)
+static void PrintUsage(char **argv)
 {
     std::cout << "usage: " << argv[0] << " [quirkfile_path \"message\"]" EL;
 }
