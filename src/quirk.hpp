@@ -13,7 +13,6 @@ namespace QuirkUtils
     // A relation of a base substring and what it is replaced with
     struct Pair
     {
-        //std::string str, replacement;
         char str[9], replacement[9]; // 8-character limit, pretty reasonable imo
     };
 
@@ -60,10 +59,10 @@ namespace QuirkUtils
 
     // Clear the input buffer
     void ignoreLine();
-    void ignoreLine(std::ifstream& stream);
+    void ignoreLine(std::ifstream &stream);
 
     // Check if a file with a quirk exists and if so, return the quirk
-    Quirk checkFile(const std::string& title);
+    int checkFile(const std::string &title, Quirk &q);
 
     // Parse the effects of a quirk on a string
     std::string parseQuirk(const std::string &input, const Quirk &quirk);

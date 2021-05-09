@@ -16,11 +16,10 @@ namespace QuirkUtils
         stream.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     }
 
-    Quirk checkFile(const std::string& title)
+    int checkFile(const std::string& title, Quirk& quirk)
     {
         std::cout << "Reading quirkfile " << title EL;
 
-        Quirk quirk;
         std::ifstream fin(title.c_str());
 
         if(fin)
@@ -36,7 +35,6 @@ namespace QuirkUtils
             // Get the color
             fin >> red >> green >> blue;
             ignoreLine(fin); // I LOVE this function
-            quirk.color = Color(red, green, blue);
             std::cout << "Color found..." EL;
 
             // Get the modifiers
@@ -70,10 +68,8 @@ namespace QuirkUtils
                 {
                     getline(fin, str, ' ');
                     strcpy_s(pairs[i].str, 9, str.c_str());
-                    //pairs[i].str = str;
                     getline(fin, replacement);
                     strcpy_s(pairs[i].replacement, 9, replacement.c_str());
-                    //pairs[i].replacement = replacement;
                 }
             }
             else
@@ -86,17 +82,19 @@ namespace QuirkUtils
             fin.close();
 
 
+            quirk.color = Color(red, green, blue);
             quirk.replacements = pairs;
             quirk.modifiers = modifiers;
             quirk.numModifiers = numModifiers;
             quirk.numReplacements = numReplacements;
+
+            return 0;
         }
         else
         {
             std::cout << "File not found." EL;
+            return -1;
         }
-
-        return quirk;
     }
 
     std::string parseQuirk(const std::string &input, const Quirk &quirk)
@@ -243,7 +241,6 @@ namespace QuirkUtils
                     temp += token;
                     temp += quirk.replacements[i].replacement;
                     output.erase(0, pos + strlen(quirk.replacements[i].str));
-                    //output.erase(0, pos + quirk.replacements[i].str.size());
                 }
                 temp += output; // Append the last nonreplacement token
                 output = temp;
