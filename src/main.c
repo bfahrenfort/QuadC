@@ -4,15 +4,22 @@
 #include "dialog.h"
 #include "resource.h"
 
+#ifndef __GNUC__
+#define _CRT_SECURE_NO_WARNINGS
+#endif //__GNUC__
+
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	LPSTR lpCmdLine, int nCmdShow)
 {
-    //int argc = 0;
-    //LPCWSTR args = GetCommandLineW();
-    //WCHAR **argv = CommandLineToArgvW(args, &argc);
-	// TODO: add some way for a cmdline opportunity with no-arg (-nowindow?)
     if(__argc > 1)
     {
+        // Attach to the console
+        AttachConsole(ATTACH_PARENT_PROCESS);
+
+        freopen("CONIN$", "r", stdin);
+        freopen("CONOUT$", "w", stdout);
+        freopen("CONERR$", "w", stderr);
+
         CmdLine(__argc, __argv);
     }
     else

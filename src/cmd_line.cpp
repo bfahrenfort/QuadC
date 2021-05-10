@@ -27,6 +27,9 @@
 #include <vector>
 #include "quirk.hpp"
 
+#include <windows.h>
+#include <stdio.h>
+
 using namespace QuirkUtils;
 
 static Quirk DaveCmdLine();
@@ -37,51 +40,54 @@ int CmdLine (int argc, char **argv)
 {
     switch(argc)
     {
-        case 1:
+        case 2:
         {
-            std::string message;
-            std::string choice;
-            std::string file;
-            std::string output;
-            Quirk quirk;
-            int result{};
-
-            std::cout << "Enter the path to your quirkfile, or -1 if you do not have one:";
-            std::cin >> file;
-            IgnoreLine();
-
-            if(file == "-1")
+            if(strcmp(argv[1], "-nowindow") == 0)
             {
-                quirk = DaveCmdLine();
-            } else
-            {
-                result = CheckFile(file, quirk);
-            }
+                std::string message;
+                    std::string choice;
+                    std::string file;
+                    std::string output;
+                    Quirk quirk;
+                    int result{};
 
-            if(result == 0)
-            {
-                std::cout << "Enter your message:";
-                getline(std::cin, message);
-
-                do
-                {
-                    output = ParseQuirk(message, quirk);
-                    std::cout << output EL;
-                    std::cout << "Would you like to enter another message? y/n:";
-                    std::cin >> choice;
+                    std::cout << "Enter the path to your quirkfile, or -1 if you do not have one:" EL;
+                    std::cin >> file;
                     IgnoreLine();
-                    if(choice == "y")
-                    {
-                        std::cout << "Enter your message:";
-                        getline(std::cin, message);
-                    }
-                } while(choice != "n");
 
-                DestructQuirk(quirk);
-            } else
-            {
-                std::cout << "DAVE: you done goofed" EL;
-                return -1;
+                    if(file == "-1")
+                    {
+                        quirk = DaveCmdLine();
+                    } else
+                    {
+                        result = CheckFile(file, quirk);
+                    }
+
+                    if(result == 0)
+                    {
+                        std::cout << "Enter your message:" EL;
+                        getline(std::cin, message);
+
+                        do
+                        {
+                            output = ParseQuirk(message, quirk);
+                            std::cout << output EL;
+                            std::cout << "Would you like to enter another message? y/n:" EL;
+                            std::cin >> choice;
+                            IgnoreLine();
+                            if(choice == "y")
+                            {
+                                std::cout << "Enter your message:";
+                                getline(std::cin, message);
+                            }
+                        } while(choice != "n");
+
+                        DestructQuirk(quirk);
+                    } else
+                    {
+                        std::cout << "DAVE: you done goofed" EL;
+                        return -1;
+                }
             }
             break;
         }
@@ -205,5 +211,7 @@ static Quirk DaveCmdLine()
 
 static void PrintUsage(char **argv)
 {
-    std::cout << "usage: " << argv[0] << " [quirkfile_path \"message\"]" EL;
+    std::cout << "\nusage:\n\t" << argv[0] << ": opens the GUI" EL;
+    std::cout << "\t" << argv[0] << " quirkfile_path \"message\": parses the message inside the quotes according to the quirk and prints the output" EL;
+    std::cout << "\t" << argv[0] << " -cli: opens a command-line interface tool for parsing messages and creating quirkfiles" EL;
 }
