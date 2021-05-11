@@ -24,13 +24,10 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
     }
     else
     {
-        static char szAppName[] = TEXT ("QuadC");
         HWND hwnd;
         MSG msg;
 
         hwnd = CreateDialog(hInstance, MAKEINTRESOURCE(IDD_MAIN), 0, DlgProc);
-        HMENU menu = LoadMenu(hInstance, MAKEINTRESOURCE(IDM_MAINMENU));
-        SetMenu(hwnd, menu);
         ShowWindow(hwnd, nCmdShow);
         UpdateWindow(hwnd);
 
