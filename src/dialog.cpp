@@ -3,29 +3,16 @@
 #include "resource.h"
 #include "quirk.hpp"
 
-BOOL CALLBACK DlgProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam)
+LRESULT CALLBACK WndProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam)
 {
     HINSTANCE hInst;
 
 	switch(Message)
 	{
-		case WM_INITDIALOG:
+		case WM_CREATE:
 		{
-		    // Get my HINSTANCE
+		    // Get my HINSTANCE for later use
 		    hInst = GetModuleHandle(nullptr);
-
-		    // Give the dialog a menu
-		    HMENU menu = LoadMenu(hInst, MAKEINTRESOURCE(IDM_MAINMENU));
-            SetMenu(hwnd, menu);
-
-            // Set its icon in the top left corner
-            auto hIcon = (HICON) LoadImage(hInst,
-                                            MAKEINTRESOURCE(IDI_MAIN),
-                                            IMAGE_ICON,
-                                            GetSystemMetrics(SM_CXSMICON),
-                                            GetSystemMetrics(SM_CYSMICON),
-                                            0);
-            SendMessage(hwnd, WM_SETICON, ICON_SMALL, (LPARAM) hIcon);
 		}
 		break;
 		case WM_COMMAND:
@@ -39,14 +26,15 @@ BOOL CALLBACK DlgProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam)
                 break;
                 case IDM_EXIT:
                 {
-                    EndDialog(hwnd, 0);
                     PostQuitMessage(0);
                 }
                 break;
+                default:
+                    return DefWindowProc(hwnd, Message, wParam, lParam);
             }
         }
         break;
-		case WM_CLOSE
+	    case WM_CLOSE:
         {
             EndDialog(hwnd, 0);
             PostQuitMessage(0);
@@ -57,7 +45,7 @@ BOOL CALLBACK DlgProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam)
 	        PostQuitMessage(0);
 		break;
 		default:
-			return FALSE;
+            return DefWindowProc(hwnd, Message, wParam, lParam);
 	}
 	return TRUE;
 }

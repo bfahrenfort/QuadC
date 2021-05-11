@@ -11,6 +11,8 @@
 #define IDC_CONVOS                      1002
 #define IDC_MESSAGES                    1003
 
+#define IDS_WINDOW_CLASS                2002
+
 // Next default values for new objects
 //
 #ifdef APSTUDIO_INVOKED

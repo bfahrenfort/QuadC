@@ -8,8 +8,13 @@
 
 #ifdef __cplusplus
 extern "C"
+{
 #endif //__cplusplus
 
-BOOL CALLBACK DlgProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam);
+LRESULT CALLBACK WndProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam);
+
+#ifdef __cplusplus
+}
+#endif //__cplusplus
 
 #endif //QUIRKTYPER_DIALOG_H
