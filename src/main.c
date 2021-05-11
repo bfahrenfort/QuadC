@@ -23,5 +23,23 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
         CmdLine(__argc, __argv);
     }
     else
-        return DialogBox(hInstance, MAKEINTRESOURCE(IDD_MAIN), NULL, DlgProc);
+    {
+        static char szAppName[] = TEXT ("QuadC");
+        HWND hwnd;
+        MSG msg;
+
+        hwnd = CreateDialog(hInstance, MAKEINTRESOURCE(IDD_MAIN), 0, DlgProc);
+        HMENU menu = LoadMenu(hInstance, MAKEINTRESOURCE(IDM_MAINMENU));
+        SetMenu(hwnd, menu);
+        ShowWindow(hwnd, nCmdShow);
+        UpdateWindow(hwnd);
+
+        while (GetMessage(&msg, NULL, 0, 0))
+        {
+            TranslateMessage(&msg);
+            DispatchMessage(&msg);
+        }
+
+        return msg.wParam;
+    }
 }
