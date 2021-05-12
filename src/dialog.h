@@ -13,6 +13,8 @@ extern "C"
 
 LRESULT CALLBACK WndProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam);
 
+BOOL CALLBACK QrkProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam);
+
 #ifdef __cplusplus
 }
 #endif //__cplusplus
