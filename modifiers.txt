@@ -6,5 +6,5 @@ ALTCP1 - Text alternates from capital to lowercase
 ALTCP2 - Text alternates from lowercase to capital
 RNDCAP - Characters will be randomly capped or uncapped
 TTLCAP - The first character of every word will be capitalized.
-ASTRSK - Text will be enclosed in asterisks. Highly recommended to place this BEFORE a roleplay prefix.
+ASTRSK - Text will be enclosed in asterisks. Highly recommended to place this BEFORE a roleplay prefix if hand-creating a quirkfile.
 ROLPLY - Roleplay prefix. The next line should contain the prefix, which will appear before a space and then the string.
